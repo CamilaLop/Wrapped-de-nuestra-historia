@@ -328,14 +328,22 @@
     .flip-text{font-size:16px;line-height:1.35;font-weight:700}
 
     .carousel{
-      position:relative;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.05);min-height:270px;
+      position:relative;
+      overflow:hidden;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      height:clamp(250px, 48vh, 420px);
+      min-height:0;
+      flex:0 0 auto;
     }
     .carousel-track{display:flex;transition:transform .6s cubic-bezier(.2,.8,.2,1);height:100%}
-    .carousel-slide{min-width:100%;height:400px;position:relative}
-    .carousel-slide img{width:100%;height:100%;object-fit:cover }
+    .carousel-slide{min-width:100%;height:100%;position:relative}
+    .carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
     .carousel-caption{
-      position:absolute;left:12px;right:12px;bottom:12px;background:rgba(10,10,12,.38);border:1px solid rgba(255,255,255,.10);
+      position:absolute;left:12px;right:12px;bottom:12px;
+      max-height:34%;overflow:auto;
+      background:rgba(10,10,12,.38);border:1px solid rgba(255,255,255,.10);
       border-radius:18px;padding:12px 14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
       font-size:13px;line-height:1.45;
     }
@@ -415,11 +423,31 @@
     .future-text{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
     .future-time{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.74);font-weight:900}
 
-    .count-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .count-box{
-      border-radius:22px;padding:14px 8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);text-align:center
+    .count-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      width:100%;
     }
-    .count-num{font-size:28px;font-weight:900;letter-spacing:-.04em}
+    .count-box{
+      min-width:0;
+      border-radius:22px;
+      padding:14px 10px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.09);
+      text-align:center;
+      overflow:hidden;
+    }
+    .count-num{
+      font-size:clamp(18px, 5vw, 28px);
+      font-weight:900;
+      letter-spacing:-.04em;
+      line-height:1.05;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      font-variant-numeric:tabular-nums;
+    }
     .count-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.74);font-weight:800}
 
     .letter-box{
@@ -896,6 +924,24 @@
 
       .note-card img{ height:260px; }
       .big-photo{ height:220px; }
+
+      .carousel{
+        height:clamp(220px, 40vh, 320px);
+      }
+
+      .carousel-caption{
+        font-size:12px;
+        line-height:1.35;
+        padding:10px 12px;
+      }
+
+      .count-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .count-num{
+        font-size:clamp(16px, 7vw, 22px);
+      }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -1829,7 +1875,7 @@
   caption:'video 11'
 },
 {
-  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836483/video-12_nrekgi.mp4',
+  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836489/video-12_xokjdi.mp4',
   poster:'imagens/story-3.jpeg',
   title:'Story 12',
   text:'Un momento especial en video.',
@@ -1878,7 +1924,7 @@
   caption:'video 18'
 },
 {
-  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836485/video-19_nrekgi.mp4',
+  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836518/video-19_vohga1.mov',
   poster:'imagens/story-3.jpeg',
   title:'Story 19',
   text:'Un momento especial en video.',
