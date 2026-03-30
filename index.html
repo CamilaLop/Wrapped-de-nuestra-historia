@@ -328,24 +328,171 @@
     .flip-text{font-size:16px;line-height:1.35;font-weight:700}
 
     .carousel{
-      position:relative;
-      overflow:hidden;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.05);
-      height:clamp(250px, 48vh, 420px);
-      min-height:0;
-      flex:0 0 auto;
-    }
-    .carousel-track{display:flex;transition:transform .6s cubic-bezier(.2,.8,.2,1);height:100%}
-    .carousel-slide{min-width:100%;height:100%;position:relative}
-    .carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
-    .carousel-caption{
-      position:absolute;left:12px;right:12px;bottom:12px;
-      max-height:34%;overflow:auto;
-      background:rgba(10,10,12,.38);border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;padding:12px 14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-      font-size:13px;line-height:1.45;
+        position:relative;
+        width:min(100%, 320px);
+        margin:0 auto;
+        aspect-ratio:9 / 16;
+        border-radius:30px;
+        overflow:hidden;
+        background:#050507;
+        border:1px solid rgba(255,255,255,.12);
+        box-shadow:0 24px 60px rgba(0,0,0,.30);
+        isolation:isolate;
+        }
+
+        .carousel::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        background:
+            linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.06) 24%, rgba(0,0,0,.00) 45%, rgba(0,0,0,.55) 100%);
+        z-index:2;
+        pointer-events:none;
+        }
+
+        .carousel-track{
+        display:flex;
+        height:100%;
+        transition:transform .45s cubic-bezier(.22,.8,.2,1);
+        will-change:transform;
+        }
+
+        .carousel-slide{
+        min-width:100%;
+        height:100%;
+        position:relative;
+        }
+
+        .carousel-slide img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+        }
+
+        .carousel-caption{
+        position:absolute;
+        left:14px;
+        right:14px;
+        bottom:16px;
+        z-index:3;
+        background:rgba(10,10,12,.34);
+        border:1px solid rgba(255,255,255,.10);
+        border-radius:18px;
+        padding:12px 14px;
+        backdrop-filter:blur(12px);
+        -webkit-backdrop-filter:blur(12px);
+        font-size:13px;
+        line-height:1.4;
+        color:#fff;
+        max-height:30%;
+        overflow:auto;
+        scrollbar-width:none;
+        }
+        .carousel-caption::-webkit-scrollbar{display:none}
+
+        .carousel-story-ui{
+        position:absolute;
+        inset:0;
+        z-index:4;
+        pointer-events:none;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        padding:12px;
+        }
+
+        .carousel-story-progress{
+        display:grid;
+        grid-auto-flow:column;
+        grid-auto-columns:1fr;
+        gap:6px;
+        }
+
+        .carousel-story-progress span{
+        height:4px;
+        border-radius:999px;
+        background:rgba(255,255,255,.22);
+        overflow:hidden;
+        }
+
+        .carousel-story-progress i{
+        display:block;
+        width:0%;
+        height:100%;
+        border-radius:inherit;
+        background:linear-gradient(90deg, rgba(255,255,255,.98), rgba(255,255,255,.75));
+        }
+
+        .carousel-story-progress span.filled i{
+        width:100%;
+        }
+
+        .carousel-story-progress span.active i{
+        animation:carouselStoryFill 3.4s linear forwards;
+        }
+
+        @keyframes carouselStoryFill{
+        from{width:0%}
+        to{width:100%}
+        }
+
+        .carousel-story-top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-top:8px;
+        }
+
+        .carousel-story-pill,
+        .carousel-story-counter{
+        background:rgba(10,10,12,.32);
+        border:1px solid rgba(255,255,255,.10);
+        backdrop-filter:blur(10px);
+        -webkit-backdrop-filter:blur(10px);
+        color:#fff;
+        font-size:11px;
+        font-weight:800;
+        letter-spacing:.08em;
+        text-transform:uppercase;
+        border-radius:999px;
+        padding:8px 10px;
+        }
+
+        .dots{
+        display:none;
+        }
+
+        @media (max-width:768px){
+        .carousel{
+            width:min(100%, 290px);
+            border-radius:24px;
+        }
+
+        .carousel-caption{
+            left:10px;
+            right:10px;
+            bottom:10px;
+            padding:10px 12px;
+            font-size:12px;
+            line-height:1.35;
+            max-height:28%;
+        }
+
+        .carousel-story-ui{
+            padding:10px;
+        }
+
+        .carousel-story-top{
+            margin-top:6px;
+        }
+
+        .carousel-story-pill,
+        .carousel-story-counter{
+            font-size:10px;
+            padding:7px 9px;
+        }
     }
     .dots{display:flex;gap:7px;justify-content:center}
     .dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22)}
@@ -951,6 +1098,25 @@
         transition-duration:.01ms !important;
         scroll-behavior:auto !important;
       }
+    }
+    @media (max-width: 768px){
+    .carousel{
+        height:clamp(220px, 40vh, 320px);
+    }
+
+    .carousel-caption{
+        font-size:12px;
+        line-height:1.35;
+        padding:10px 12px;
+    }
+
+    .count-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .count-num{
+        font-size:clamp(16px, 7vw, 22px);
+    }
     }
 
 </style>
@@ -1924,7 +2090,7 @@
   caption:'video 18'
 },
 {
-  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836518/video-19_vohga1.mov',
+  src:'https://res.cloudinary.com/dy10fvioy/video/upload/v1774836518/video-19_vohga1.mp4',
   poster:'imagens/story-3.jpeg',
   title:'Story 19',
   text:'Un momento especial en video.',
@@ -2473,61 +2639,76 @@
     }
 
     function mountCarousel(){
-      const carousel = document.getElementById('carousel');
-      const track = document.getElementById('carouselTrack');
-      const dots = document.getElementById('carouselDots');
+    const carousel = document.getElementById('carousel');
+    const track = document.getElementById('carouselTrack');
+    const dots = document.getElementById('carouselDots');
 
-      track.innerHTML = CONFIG.gallerySlides.map(item => `
+    track.innerHTML = CONFIG.gallerySlides.map(item => `
         <div class="carousel-slide">
-          <img src="${item.image}" alt="Foto del carrusel" loading="lazy" decoding="async">
-          <div class="carousel-caption">${item.caption}</div>
+        <img src="${item.image}" alt="Foto del carrusel" loading="lazy" decoding="async">
+        <div class="carousel-caption">${item.caption}</div>
         </div>
-      `).join('');
+    `).join('');
 
-      dots.innerHTML = CONFIG.gallerySlides.map((_, i) => `<span class="${i===0 ? 'active' : ''}"></span>`).join('');
+    dots.innerHTML = '';
 
-      const localSlides = [...track.children];
-      const updateDotsFromScroll = () => {
-        const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
-        carouselIndex = Math.max(0, Math.min(index, localSlides.length - 1));
-        [...dots.children].forEach((dot, i) => {
-          dot.classList.toggle('active', i === carouselIndex);
-        });
-      };
+    if(!carousel.querySelector('.carousel-story-ui')){
+        const storyUi = document.createElement('div');
+        storyUi.className = 'carousel-story-ui';
+        storyUi.innerHTML = `
+        <div>
+            <div class="carousel-story-progress" id="carouselStoryProgress"></div>
+            <div class="carousel-story-top">
+            <div class="carousel-story-pill">nuestro álbum</div>
+            <div class="carousel-story-counter" id="carouselStoryCounter">1 / ${CONFIG.gallerySlides.length}</div>
+            </div>
+        </div>
+        `;
+        carousel.appendChild(storyUi);
+    }
 
-      carousel.addEventListener('scroll', updateDotsFromScroll, {passive:true});
-      dots.querySelectorAll('span').forEach((dot, i) => {
-        dot.addEventListener('click', () => setCarousel(i));
-      });
+    const progress = document.getElementById('carouselStoryProgress');
+    progress.innerHTML = CONFIG.gallerySlides.map(() => `<span><i></i></span>`).join('');
 
-      carousel.addEventListener('touchstart', () => clearInterval(carouselTimer), {passive:true});
-      carousel.addEventListener('pointerdown', () => clearInterval(carouselTimer));
-      carousel.addEventListener('touchend', () => { if(!carouselPaused) startCarousel(); }, {passive:true});
-      carousel.addEventListener('pointerup', () => { if(!carouselPaused) startCarousel(); });
+    updateCarouselStoryUi();
 
-      startCarousel();
+    carousel.addEventListener('touchstart', () => clearInterval(carouselTimer), { passive:true });
+    carousel.addEventListener('pointerdown', () => clearInterval(carouselTimer));
+    carousel.addEventListener('touchend', () => { if(!carouselPaused) startCarousel(); }, { passive:true });
+    carousel.addEventListener('pointerup', () => { if(!carouselPaused) startCarousel(); });
+
+    startCarousel();
+    }
+
+    function updateCarouselStoryUi(){
+    const bars = [...document.querySelectorAll('#carouselStoryProgress span')];
+    const counter = document.getElementById('carouselStoryCounter');
+
+    bars.forEach((bar, i) => {
+        bar.classList.remove('filled', 'active');
+        void bar.offsetWidth;
+        if(i < carouselIndex) bar.classList.add('filled');
+        if(i === carouselIndex) bar.classList.add('active');
+    });
+
+    if(counter){
+        counter.textContent = `${carouselIndex + 1} / ${CONFIG.gallerySlides.length}`;
+    }
     }
 
     function setCarousel(index){
-      const carousel = document.getElementById('carousel');
-      const total = CONFIG.gallerySlides.length;
-      carouselIndex = (index + total) % total;
+    const total = CONFIG.gallerySlides.length;
+    carouselIndex = (index + total) % total;
 
-      carousel.scrollTo({
-        left: carousel.clientWidth * carouselIndex,
-        behavior: LITE_MODE ? 'auto' : 'smooth'
-      });
-
-      [...document.querySelectorAll('#carouselDots span')].forEach((dot, i) => {
-        dot.classList.toggle('active', i === carouselIndex);
-      });
+    document.getElementById('carouselTrack').style.transform = `translateX(-${carouselIndex * 100}%)`;
+    updateCarouselStoryUi();
     }
 
     function startCarousel(){
-      clearInterval(carouselTimer);
-      if(carouselPaused) return;
-      if(current !== 6) return;
-      carouselTimer = setInterval(() => setCarousel(carouselIndex + 1), LITE_MODE ? 4800 : 3400);
+    clearInterval(carouselTimer);
+    if(carouselPaused) return;
+    if(current !== 6) return;
+    carouselTimer = setInterval(() => setCarousel(carouselIndex + 1), 3400);
     }
 
     function mountReveal(){
